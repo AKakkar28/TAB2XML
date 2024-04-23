@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.rmi.server.LoaderHandler;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.List;
@@ -24,6 +25,7 @@ import Parser.*;
 import converter.Converter;
 import converter.measure.TabMeasure;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -41,6 +43,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.Window;
 import utility.Range;
 import utility.Settings;
@@ -72,6 +75,7 @@ public class MainViewController extends Application {
 	@FXML  Button previewButton;
 	@FXML  Button goToline;
 	@FXML  ComboBox<String> cmbScoreType;
+	public XMLParser xmlParser = new XMLParser();
 
 
 	public MainViewController() {
@@ -249,12 +253,26 @@ public class MainViewController extends Application {
 		return userOkToGoAhead;
 	}
 
-	private Window openNewWindow(Parent root, String windowName) {
+	Window openNewWindow(Parent root, String windowName) {
 		Stage stage = new Stage();
 		stage.setTitle(windowName);
-		stage.initModality(Modality.APPLICATION_MODAL);
+		//stage.initModality(Modality.APPLICATION_MODAL);
+		stage.initModality(Modality.NONE);
 		stage.initOwner(MainApp.STAGE);
 		stage.setResizable(false);
+		
+		if(windowName.equals("Sheet Music")) {
+			stage.setResizable(false);
+			stage.setOnCloseRequest(e -> {
+				e.consume();
+				PreviewSheetMusicController.seqMang.stop();
+				if(PreviewSheetMusicController.canvasNote.t1.isAlive()) {
+					PreviewSheetMusicController.canvasNote.t1.stop();
+				}
+				stage.hide();
+			});
+		}
+		
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
@@ -311,7 +329,6 @@ public class MainViewController extends Application {
 	private void previewButtonHandle() throws IOException {
 		System.out.println("Preview Button Clicked!");
 		try {
-			XMLParser xmlParser = new XMLParser();
 			xmlParser.loadXMLFromString(converter.getMusicXML());
 		} catch (Exception e1) {
 			e1.printStackTrace();
@@ -404,6 +421,9 @@ public class MainViewController extends Application {
     
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-
+		primaryStage.setOnCloseRequest( event -> {
+			Platform.exit();
+			System.exit(0);
+		});
 	}
 }

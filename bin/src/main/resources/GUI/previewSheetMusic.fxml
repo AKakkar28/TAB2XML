@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane fx:id="settingsPane" prefHeight="650.0" prefWidth="950.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.PreviewSheetMusicController">
+   <children>
+      <Button fx:id="Save" layoutX="548.4" layoutY="364.20000000000005" mnemonicParsing="false" onAction="#handleSave" prefHeight="26.0" prefWidth="105.0" text="Save" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="14.0" />
+      <Button fx:id="playMusic" layoutX="632.0" layoutY="603.6" mnemonicParsing="false" onAction="#handleMusic" prefHeight="26.0" prefWidth="94.0" text="Play Music" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="632.0" AnchorPane.rightAnchor="224.0" />
+      <Button fx:id="Edit" layoutX="448.0" layoutY="364.0" mnemonicParsing="false" onAction="#editInput" prefHeight="26.0" prefWidth="94.0" text="Edit input" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="125.0" />
+      <Canvas fx:id="canvas" height="555.0" layoutX="28.0" layoutY="25.0" width="897.0" AnchorPane.bottomAnchor="75.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="20.0" />
+      <HBox layoutX="14.0" layoutY="598.0" spacing="5.0">
+         <children>
+            <Label text="Go-to Measure">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </Label>
+            <TextField fx:id="gotoMeasureField" prefHeight="25.0" prefWidth="55.0" />
+            <Button fx:id="gotoMeasureButton" mnemonicParsing="false" onAction="#handleGotoMeasure" prefHeight="25.0" prefWidth="42.0" text="Go" />
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </HBox>
+   </children>
+</AnchorPane>

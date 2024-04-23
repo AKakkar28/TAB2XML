@@ -11,4 +11,9 @@ Testing change
 Pull test change.
 Muhammad made a change.
 Akarshan made a change.
+<<<<<<< HEAD
 I made a change
+made a change.
+=======
+I made a change
+>>>>>>> refs/remotes/origin/Develop
