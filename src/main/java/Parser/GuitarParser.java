@@ -51,6 +51,7 @@ public class GuitarParser {
 	int count4=0;
 	int count5 =0;
 	int trying;
+	
 
 
 	public void parseGuitar(ArrayList<String> details, NodeList measures, ArrayList<Integer> nNPM, Document doc) {
